@@ -158,7 +158,7 @@ sdk/                the ReXGlue fork this port uses (source and CMake; its big l
 tools/              the tools the installer runs (WAD, Lua, shaders, icons, asset pack) + check_clean.py
 docs/BUILD.md       how the pieces fit, step by step
 THIRD_PARTY.md      every dependency, its origin and its license
-LICENSE.PENDIENTE.md  the license of this code is not decided yet
+LICENSE              GPL-3.0-or-later for project-owned code
 ```
 
 Another game of the saga is installed by adding `install/games/<game>.toml` with its own hashes, paths and Lua
@@ -168,9 +168,9 @@ operations; the installer is not specific to Magic 2014.
 
 OpenAI Codex helped prepare the source snapshot, update the installation instructions, and check that local game files are excluded. The maintainer reported the Switch hardware result.
 
-## Publication status
+## License
 
-This source snapshot is staged for review. Confirm the reNut redistribution terms and choose a license for the project-owned code before publishing. [License review](LICENSE.PENDIENTE.md) ? [Third-party notices](THIRD_PARTY.md)
+Project-owned code is licensed under GPL-3.0-or-later, following the other Magic Switch ports. ReXGlue and its Horizon layer retain BSD-3-Clause. The reNut renderer is included under the author's written redistribution permission for the Magic ports. Other dependencies retain their own terms. [Project license](LICENSE) ? [Third-party notices](THIRD_PARTY.md)
 
 ## Credits
 
