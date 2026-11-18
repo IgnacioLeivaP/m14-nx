@@ -1,0 +1,174 @@
+# Magic 2014 para el instalador de este port: que archivos tuyos hacen falta, con que SHA256, y como se generan
+# los menus a partir de tus WAD. Nada de esto es material del juego: los hashes solo comprueban que tu copia es la
+# que el port espera, y las recetas de los menus son operaciones nuestras sobre datos que no salen de tu equipo.
+#
+# Un juego nuevo se anade con otro <id>.toml en esta carpeta; install.py y las herramientas no cambian.
+
+schema = 1
+id = "mtg14"
+name = "Magic: The Gathering - Duels of the Planeswalkers 2014"
+title_id = "584112C5"
+nro = "mtg14.nro"
+sd_folder = "mtg14-nx"
+pack_name = "game_root"
+sdk_min = "0.10.0"
+
+# El generador de codigo (ReXGlue) y el perfil con el que se genero, para la linea [enhancements] del port.
+codegen_manifest = "mtg14_manifest.toml"
+codegen_profile = "optimised"
+codegen_env = ["REX_MAX_JUMP_TABLE_ENTRIES=4096"]
+
+# De donde salen los contenedores de shaders (tools/shaders_wad.py).
+shader_wads = ["DATA_CORE.WAD", "UPDATE_DATA_CORE.WAD"]
+
+# ---------------------------------------------------------------- archivos de tu copia (carpeta --data)
+
+[[required]]
+file = "default.xex"
+size = 16166912
+sha256 = "0aab95bec6aee6b82ac92a36b0af17e1a5840bfeec4f9fb9889eb620b17633b7"
+info = "el ejecutable del juego (carpeta de la copia XBLA del titulo 584112C5)"
+
+[[required]]
+file = "default.xexp"
+size = 1359872
+sha256 = "0dc3022934e8f7f02ab92c77f94ce4219b43380cb093da07fdb4c9920a1edcc0"
+info = "la parte del ejecutable que aplica el Title Update"
+
+[[required]]
+file = "DATA_CORE.WAD"
+size = 426830060
+sha256 = "5b40fa9e4c4fd1b17b05538e6df4ba0b26541b18f43e434c508333d0e6c4d2d0"
+info = "los datos del juego: menus, cartas, arte y sonido"
+
+[[required]]
+file = "DATA_DECKS_D14.WAD"
+size = 181163596
+sha256 = "4cdd4585f2995df374cb1a963db06e0ef261e1e5127830747aad5226f8186f9d"
+info = "los mazos del juego base"
+
+[[required]]
+file = "UPDATE_DATA_CORE.WAD"
+size = 1567928
+sha256 = "61c5e11ff0f901ed6ee46ca928f2fb7944ac141ae882425eb45fdffe1708955a"
+info = "los datos del Title Update (el del juego y el de --tu deben ser el mismo fichero)"
+
+[[required]]
+file = "UPDATE_DATA_DECKS_D14.WAD"
+size = 1727102
+sha256 = "ec057ced0933f83057fcc02ff835ae3e2b35f45593f5c97e2d9f498b57ad20c0"
+info = "los mazos que trae el Title Update"
+
+[[required]]
+file = "UPDATE_DATA_DECKS_E14.WAD"
+size = 799399
+sha256 = "b3155823df1b488339f70a0e2e999ad54b3f8742cdd55bdcc5de521c79314340"
+info = "los mazos de la expansion que trae el Title Update"
+
+[[required]]
+file = "UPDATE_DATA_DLC_0001.WAD"
+size = 205520
+sha256 = "11bfad36a7f8123a5db2aeedcdae46a68e39bbd88dd6ec8a8063ff1f29325644"
+info = "la lista de contenido descargable que trae el Title Update"
+
+# ---------------------------------------------------------------- paquete del Title Update (carpeta --tu)
+
+[[optional]]
+file = "tu00000002_00000000"
+size = 5758976
+sha256 = "45fa0979b3a34c1a5131c921417321d9859baae5eebe8be382568d84faa92ea1"
+info = "el paquete del Title Update 0.0.0.2 tal como se descarga (de aqui salen default.xexp y los Update_Data_*.WAD)"
+
+# ---------------------------------------------------------------- contenido descargable (carpeta --dlc)
+
+[[dlc]]
+file = "055AC0E481D24F9D70FA85D03B08AB439CDD72CF58"
+size = 26120192
+sha256 = "76723ef83135f68626f42dd7f457833965434dac84c6a7e2fff19268ddd88281"
+info = "paquete DLC comprado"
+
+[[dlc]]
+file = "5CEDAEA9670D114593BEAFCC0A440BC853D77DC558"
+size = 26968064
+sha256 = "ab273efa1ca7f6c11194b68c22b3afed3999c3c34be63376dc1377a2ba648106"
+info = "paquete DLC comprado"
+
+[[dlc]]
+file = "672D9DC1F956494BB0CFE2D8207A9B049A93A05058"
+size = 188661760
+sha256 = "42594d0c80428d5d5e5f70400dfc2a4a79dbd6ca8714d02d8884a82904bc73c7"
+info = "paquete DLC comprado"
+
+[[dlc]]
+file = "E7404001BE360F813D0D69A3F63F5A74756668CA58"
+size = 25776128
+sha256 = "9cc624fa09463ee8143c49af8d9ee09d23b152060ec3beb48ae952f601c62c8c"
+info = "paquete DLC comprado"
+
+# ---------------------------------------------------------------- menus (install/mtg14_lua.py)
+#
+# `entry` es la ruta dentro del WAD y `clase` la operacion de install/mtg14_lua.py. El sha256 es del fichero que
+# produce el instalador; si tu copia da otro, se instala igual y se avisa (puede ser otra version del juego).
+
+[[lua]]
+module = "menus.frontend.main_menu"
+out = "menus.frontend.main_menu.luac"
+clase = "main_menu"
+wad = "UPDATE_DATA_CORE.WAD"
+entry = "UPDATE_DATA_CORE/DATA_ALL_PLATFORMS/LUBE/LOGIC/MENUS/FRONTEND/MAIN_MENU.LOB"
+sha256 = "81a5fe1c1abfac9eb18e48bf7a813460897a22df6a276753652c0f01320695b5"
+info = "quita del menu principal las filas de Xbox Live, logros y tienda, y el cartel de promociones"
+
+[[lua]]
+module = "menus.frontend.main_menu_layout"
+out = "menus.frontend.main_menu_layout.luac"
+clase = "main_menu_layout"
+wad = "DATA_CORE.WAD"
+entry = "DATA_CORE/DATA_X360/LUBE/LAYOUT/H1080_DEFAULT/MENUS/FRONTEND/MAIN_MENU_LAYOUT.LOB"
+sha256 = "9e91c5623ced6c5edb9ba66f00593824d7626f99087bd4ff588252b0e72b76fd"
+info = "saca de pantalla los tres textos de la version de Xbox que quedaban sueltos"
+
+[[lua]]
+module = "menus.frontend.extras_menu"
+out = "menus.frontend.extras_menu.luac"
+clase = "extras_menu"
+wad = "DATA_CORE.WAD"
+entry = "DATA_CORE/DATA_ALL_PLATFORMS/LUBE/LOGIC/MENUS/FRONTEND/EXTRAS_MENU.LOB"
+sha256 = "5b007d7225af89feef7808468e2302f352d7c83a6fb827c1f43ffb7e24cea114"
+info = "quita de Adicionales las promociones y los desbloqueos que no existen en este port"
+
+[[lua]]
+module = "menus.startup.press_start"
+out = "menus.startup.press_start.lua"
+clase = "press_start"
+wad = "DATA_CORE.WAD"
+entry = "DATA_CORE/DATA_ALL_PLATFORMS/LUBE/LOGIC/MENUS/STARTUP/PRESS_START.LOB"
+sha256 = "0dcb0d2f0740b7deefc971dd37c5b7d5e5313f319a81a86856a34c0748193a96"
+info = "una sola pulsacion en la pantalla de titulo y sin promociones"
+
+[[lua]]
+module = "menus.dialog.content_enumeration"
+out = "menus.dialog.content_enumeration.lua"
+clase = "content_enumeration"
+wad = "DATA_CORE.WAD"
+entry = "DATA_CORE/DATA_ALL_PLATFORMS/LUBE/LOGIC/MENUS/DIALOG/CONTENT_ENUMERATION.LOB"
+sha256 = "9689d1cb4db491e3dc4cc6143e77e3ce88f4c00dafdff3fb1da91354a12c2b61"
+info = "al cargar el DLC se ve solo el anillo de carga, sin tapar el menu, y se cierra al terminar"
+
+[[lua]]
+module = "menus.frontend.help_options_basic_settings"
+out = "menus.frontend.help_options_basic_settings.lua"
+clase = "settings"
+wad = "DATA_CORE.WAD"
+entry = "DATA_CORE/DATA_ALL_PLATFORMS/LUBE/LOGIC/MENUS/FRONTEND/HELP_OPTIONS_BASIC_SETTINGS.LOB"
+sha256 = "0a3f45b54dc95eb564eb69f6038b19a3604ef1a4bdeeb94cd1e4097b5e088c5a"
+info = "el menu de Configuracion con Idioma, Iconos de botones y el estado del DLC"
+
+[[lua]]
+module = "menus.frontend.help_options_basic_settings_layout"
+out = "menus.frontend.help_options_basic_settings_layout.lua"
+clase = "layout_helper"
+wad = "DATA_CORE.WAD"
+entry = "DATA_CORE/DATA_ALL_PLATFORMS/LUBE/LAYOUT/H1080_DEFAULT/MENUS/FRONTEND/HELP_OPTIONS_BASIC_SETTINGS_LAYOUT.LOB"
+sha256 = "69c946b9728f2f85bee9720c50e957f5b24a1a2d1f547da3aa80c883fcf63153"
+info = "el layout de Configuracion: anade las filas nuevas y recoloca las que ya tenia"
